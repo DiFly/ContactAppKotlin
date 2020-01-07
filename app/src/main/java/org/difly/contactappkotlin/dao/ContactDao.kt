@@ -1,12 +1,13 @@
 package org.difly.contactappkotlin.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import org.difly.contactappkotlin.entity.Contact
 
 @Dao
 interface ContactDao {
     @Query("SELECT * from contact_table ORDER BY firstname ASC")
-    fun getAlphabetizedWords(): List<Contact>
+    fun getAlphabetizedWords(): LiveData<List<Contact>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(contact: Contact)
