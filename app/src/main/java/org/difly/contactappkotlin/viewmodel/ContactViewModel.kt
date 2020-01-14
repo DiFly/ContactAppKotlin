@@ -14,12 +14,12 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
     val allContacts: LiveData<List<Contact>>
 
     init {
-        val contactDao = ContactRoomDatabase.getDatabase(application).contactDao()
+        val contactDao = ContactRoomDatabase.getDatabase(application, viewModelScope).contactDao()
         repository = ContactRepository(contactDao)
         allContacts = repository.allContacts
     }
 
-    fun inserContact(contact: Contact) = viewModelScope.launch {
+    fun insertContact(contact: Contact) = viewModelScope.launch {
         repository.insert(contact)
     }
 }
