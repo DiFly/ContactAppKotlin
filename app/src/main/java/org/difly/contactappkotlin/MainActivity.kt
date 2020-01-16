@@ -15,8 +15,7 @@ import org.difly.contactappkotlin.entity.Contact
 import org.difly.contactappkotlin.viewmodel.ContactViewModel
 
 class MainActivity : AppCompatActivity() {
-
-    private const val newWordActivityRequestCode = 1
+    private val newContactActivityRequestCode = 1
     private lateinit var contactViewModel: ContactViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,16 +35,16 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewContactActivity::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
+            startActivityForResult(intent, newContactActivityRequestCode)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == newContactActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewContactActivity.EXTRA_REPLY)?.let {
-                val contact = Contact(it)
+                val contact = Contact(null, it, "", "", "")
                 contactViewModel.insertContact(contact)
             }
         } else {

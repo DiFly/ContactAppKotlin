@@ -19,4 +19,6 @@ data class Contact(
     @ColumnInfo(name = "phonenumber")
     @NonNull
     val phoneNumber: String
-)
+) {
+    constructor(): this(null, "", "", "", "")
+}
